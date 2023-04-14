@@ -3,9 +3,12 @@
 <package format="3">
   <name>square_calib</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="phicoltan@gmail.com">norlab</maintainer>
+  <description>Square Path Publisher</description>
+  <maintainer email="phicoltan@gmail.com">Damien LaRocque</maintainer>
   <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
