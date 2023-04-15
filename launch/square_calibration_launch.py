@@ -6,6 +6,7 @@ from launch import LaunchDescription
 def generate_launch_description():
     square_calibration_node = Node(
         package="square_calib",
+        # namespace="square_calibration",
         executable="square_calibration",
         name="square_calib_node",
         output="screen",
