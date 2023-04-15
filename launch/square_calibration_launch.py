@@ -13,8 +13,8 @@ def generate_launch_description():
         parameters=[
             {"vel_lin": 0.5},
             {"vel_ang": 0.75},
-            {"dim_length": 4},
-            {"dim_width": 4},
+            {"dim_length": 4.0},
+            {"dim_width": 4.0},
         ],
         remappings=[
             ("/square/cmd_vel", "/nav_vel"),
