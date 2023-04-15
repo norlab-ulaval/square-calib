@@ -1,8 +1,9 @@
+import math
+
 import rclpy
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
 from std_srvs.srv import Trigger
-import math
 
 
 def wrap_to_pi(angle: float) -> float:
@@ -59,9 +60,7 @@ class SquareCalibrationNode(Node):
             self.square_path_cback,
         )
 
-    def square_path_cback(self, request, response):
-        print(request, type(request), type(response))
-
+    def square_path_cback(self, request: Trigger.Request, response: Trigger.Response):
         dim_a = self.dim_length
         dim_b = self.dim_width
 
