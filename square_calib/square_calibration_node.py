@@ -1,6 +1,20 @@
 import rclpy
 from geometry_msgs.msg import Twist
 from rclpy.node import Node
+from std_srvs.srv import Trigger
+import math
+
+
+def wrap_to_pi(angle: float) -> float:
+    """Wrap angle to pi
+
+    Args:
+        angle (float): Wrap angle between [-pi,pi]
+
+    Returns:
+        float: Wrapped angle to pi
+    """
+    return math.atan2(math.sin(angle), math.cos(angle))
 
 
 class SquareCalibrationNode(Node):
@@ -31,10 +45,33 @@ class SquareCalibrationNode(Node):
         # TIMES
         self.time_length = self.dim_length / self.vel_linear
         self.time_width = self.dim_width / self.vel_linear
+        self.time_rotation = math.radians(90) / self.vel_angular
 
         # PUBLISHERS
         # CMD_VEL
         self.cmd_vel_pub = self.create_publisher(Twist, "/square/cmd_vel", 10)
+
+        # Services
+        # Square Path
+        self.square_srv = self.create_service(
+            Trigger,
+            "start_square_path",
+            self.square_path_cback,
+        )
+
+    def square_path_cback(self, request, response):
+        print(request, type(request), type(response))
+
+        dim_a = self.dim_length
+        dim_b = self.dim_width
+
+        message = f"Starting square path with dimensions {dim_a} m and {dim_b} m"
+        self.get_logger().info(message)
+
+        response.success = True
+        response.message = message
+
+        return response
 
 
 def main(args=None):
